@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Scramble Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .game-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #f4f4f9;
+        }
+        .scrambled-word {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            font-size: 18px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            text-align: center;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h2>Word Scramble Game</h2>
+        <div class="scrambled-word" id="scrambled-word">LOBOCKHCAIN</div>
+        <input type="text" id="user-input" placeholder="Type your guess here">
+        <button onclick="checkAnswer()">Submit</button>
+        <div class="result" id="result"></div>
+        <button onclick="nextWord()">Next Word</button>
+    </div>
+
+    <script>
+        // Array of words with scrambled and correct answers
+        const words = [
+            { scrambled: "HNCLOKIBAC", answer: "BLOCKCHAIN" },
+            { scrambled: "TORPYCAGHRPY", answer: "CRYPTOGRAPHY" },
+            { scrambled: "AICFTIALI", answer: "ARTIFICIAL" },
+            { scrambled: "CURCYROPTCNEY", answer: "CRYPTOCURRENCY" },
+            { scrambled: "AENLRU", answer: "NEURAL" },
+            { scrambled: "TNECONCINO", answer: "CONNECTION" },
+            { scrambled: "YTOEGNHLCO", answer: "TECHNOLOGY" },
+            { scrambled: "MIZTINPATIOO", answer: "OPTIMIZATION" },
+            { scrambled: "LOYRPHEGP", answer: "HYPERLOG" },
+            { scrambled: "MIRTAEHTCI", answer: "ARITHMETIC" }
+        ];
+
+        let currentWordIndex = 0;
+
+        function displayWord() {
+            const word = words[currentWordIndex];
+            document.getElementById("scrambled-word").innerText = word.scrambled;
+            document.getElementById("user-input").value = "";
+            document.getElementById("result").innerText = "";
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("user-input").value.toUpperCase();
+            const correctAnswer = words[currentWordIndex].answer;
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById("result").innerText = "Correct!";
+                document.getElementById("result").style.color = "green";
+            } else {
+                document.getElementById("result").innerText = "Incorrect. Try again!";
+                document.getElementById("result").style.color = "red";
+            }
+        }
+
+        function nextWord() {
+            currentWordIndex = (currentWordIndex + 1) % words.length;
+            displayWord();
+        }
+
+        // Initialize the first scrambled word
+        displayWord();
+    </script>
+</body>
+</html>
